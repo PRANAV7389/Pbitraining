@@ -1,0 +1,16 @@
+relationship AutoDetected_bd748c8c-2e10-405c-b11f-c9988d6cbf50
+	fromColumn: shipments.'Sales Person'
+	toColumn: people.'Sales person'
+
+relationship AutoDetected_97016a5c-927d-413d-86a5-3e9224a25e25
+	fromColumn: shipments.Product
+	toColumn: products.Product
+
+relationship 989c835b-8ff4-e2ce-e8e0-df9256351265
+	fromColumn: shipments.Date
+	toColumn: calendar.Date
+
+relationship b309641c-3976-5155-4e66-0cbd3e3bd04d
+	fromColumn: shipments.Geography
+	toColumn: locations.Geo
+

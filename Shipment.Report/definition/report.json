@@ -1,0 +1,119 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/2.1.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY18SU07",
+      "reportVersionAtImport": "3.15",
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "CityPark",
+      "reportVersionAtImport": "5.61",
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "awesome_chocolates_logo32659247827582494.png",
+          "path": "awesome_chocolates_logo32659247827582494.png",
+          "type": "Image"
+        },
+        {
+          "name": "boxes26025700998233137.png",
+          "path": "boxes26025700998233137.png",
+          "type": "Image"
+        },
+        {
+          "name": "costs6802067118862778.png",
+          "path": "costs6802067118862778.png",
+          "type": "Image"
+        },
+        {
+          "name": "lbs8578900313112467.png",
+          "path": "lbs8578900313112467.png",
+          "type": "Image"
+        },
+        {
+          "name": "people_highlight6771220427772158.png",
+          "path": "people_highlight6771220427772158.png",
+          "type": "Image"
+        },
+        {
+          "name": "product_highlight24465794020308795.png",
+          "path": "product_highlight24465794020308795.png",
+          "type": "Image"
+        },
+        {
+          "name": "profit2824163001945932.png",
+          "path": "profit2824163001945932.png",
+          "type": "Image"
+        },
+        {
+          "name": "sales9995352970581644.png",
+          "path": "sales9995352970581644.png",
+          "type": "Image"
+        },
+        {
+          "name": "shipments524096079483362.png",
+          "path": "shipments524096079483362.png",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY18SU07",
+          "path": "BaseThemes/CY18SU07.json",
+          "type": "BaseTheme"
+        },
+        {
+          "name": "CityPark",
+          "path": "BuiltInThemes/CityPark.json",
+          "type": "CustomTheme"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

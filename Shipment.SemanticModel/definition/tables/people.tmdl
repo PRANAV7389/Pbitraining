@@ -1,0 +1,40 @@
+table people
+	lineageTag: a1e52368-d265-4b60-8bae-bb4e98473254
+
+	column 'Sales person'
+		dataType: string
+		lineageTag: 8dac4a5d-8d0f-4137-a153-daba85fd48ab
+		summarizeBy: none
+		sourceColumn: Sales person
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: b0522228-174e-4074-935a-c174625d87ff
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column Picture
+		dataType: string
+		lineageTag: 4ff79725-8bdc-48ba-b4b4-705392423434
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Picture
+
+		annotation SummarizationSetBy = Automatic
+
+	partition people = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Gypsy\Downloads\ac-sample-data.xlsx"), null, true),
+				    people_Table = Source{[Item="people",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(people_Table,{{"Sales person", type text}, {"Team", type text}, {"Picture", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

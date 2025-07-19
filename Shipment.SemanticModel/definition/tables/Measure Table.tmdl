@@ -1,0 +1,146 @@
+table 'Measure Table'
+	lineageTag: db4ee3f7-4506-4992-be54-f2df99991b25
+
+	measure 'Total Sales' = SUM(shipments[Sales])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 87973cab-8271-4ef4-939b-b8a33f8c741a
+
+	measure 'Total Boxes' = SUM(shipments[Boxes])
+		formatString: 0
+		lineageTag: 8a20475e-779e-48c5-80e7-485dfb2beff5
+
+	measure 'Total Shipments' = COUNTROWS(shipments)
+		formatString: 0
+		lineageTag: 16fab73c-28c6-4495-86e3-9d9d683098dd
+
+	measure 'Total Cost' = ```
+			SUMX(
+			    shipments, 
+			    shipments[Boxes] * RELATED(products[Cost per box])
+			)
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 66d655af-2ba0-47ad-a4d3-596a4e943149
+
+	measure 'Total Profit' = [Total Sales]-[Total Cost]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b3615a28-2a88-4cd5-8d03-119732c576e6
+
+	measure 'Profit %' =
+			
+			DIVIDE([Total Profit],[Total Sales])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: abb8e51c-6534-4490-915c-a10d435cfbe5
+
+	measure 'LBS Count' = CALCULATE([Total Shipments],shipments[Boxes]<50)
+		formatString: 0
+		lineageTag: 4e246868-ee02-4cfe-b66f-3dcf7d09580b
+
+	measure 'LBS %' = DIVIDE([LBS Count],[Total Shipments])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 78213fe1-c2c9-422a-8098-245c9cc3f128
+
+	measure 'Total Sales (Prev Month)' = CALCULATE([Total Sales],PREVIOUSMONTH('calendar'[Date]))
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: be89108d-d35c-4b0f-aa3e-5a326b6a60a6
+
+	measure 'MOM Sales Change %' = ```
+			
+			 VAR this_month = [Total Sales]
+			 VAR prev_month = [Total Sales (Prev Month)]
+			 RETURN
+			 DIVIDE(this_month-prev_month,prev_month)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9b00b05b-c31f-4f77-9d21-b61c36160523
+
+	measure 'MoM Boxes Change %' = ```
+			
+			 VAR this_month = [Total Boxes]
+			 VAR prev_month = CALCULATE([Total Boxes],PREVIOUSMONTH('calendar'[Date]))
+			 RETURN
+			 DIVIDE(this_month-prev_month,prev_month)
+			```
+		lineageTag: 5fb50044-d0e0-4a8f-aacd-d29c0353a9f6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MOM Cost Change %' =
+			
+			VAR this_month = [Total Cost]
+			Var prev_month = CALCULATE([Total Cost],PREVIOUSMONTH('calendar'[Date]))
+			RETURN
+			DIVIDE(this_month-prev_month,prev_month)
+		lineageTag: 47520052-cfec-4372-8df7-432a3ea78def
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MoM Profit Change %' = ```
+			
+			 VAR this_month = [Total Profit]
+			 VAR prev_month = CALCULATE([Total Profit],PREVIOUSMONTH('calendar'[Date]))
+			 RETURN
+			 DIVIDE(this_month-prev_month,prev_month)
+			```
+		lineageTag: 9db1cf40-4edd-4709-8382-242f0a1a23fb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MOM Shipment Change %' = ```
+			
+			 VAR this_month = [Total Shipments]
+			 VAR prev_month = CALCULATE([Total Shipments],PREVIOUSMONTH('calendar'[Date]))
+			 RETURN
+			 DIVIDE(this_month-prev_month,prev_month)
+			```
+		lineageTag: 0e5c4397-87f5-49fa-b0ab-cb77365fd23f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Latest Date' = LASTDATE('calendar'[Start of Month])
+		lineageTag: 4a5ed20a-b09b-48f5-960d-d9a9cbe463f5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Sales Latest Month' =
+			
+			Var ld = [Latest Date]
+			RETURN
+			CALCULATE([Total Sales],'calendar'[Start of Month]=ld)
+		lineageTag: d5b363d1-b13b-4aef-ba26-65d63467f1d2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Latest MoM Sales Change %' = ```
+			
+			    var ld = [Latest Date]
+			    var this_month_sales = [Total Sales Latest Month]
+			    var prev_month_sales = CALCULATE([Total Sales],'calendar'[Start of Month]= EDATE(ld,-1))
+			RETURN
+			    DIVIDE(this_month_sales-prev_month_sales,prev_month_sales)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 4ef2ec0f-a79e-40b3-afbd-98a4653e7756
+
+	measure 'Profit Target' = 0.6
+		lineageTag: 1d5781b4-2303-4c8c-8246-27cbccc91a9c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Profit Target Indicator' = if([Profit %]>[Profit Target],2, if([Profit %]>0.9*[Profit Target],1,0))
+		lineageTag: 148a88bf-a354-4e45-9442-0026c3937f37
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Measure Table' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

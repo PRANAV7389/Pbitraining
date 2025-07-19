@@ -1,0 +1,31 @@
+table locations
+	lineageTag: 333dc19e-9e6f-4858-955b-57ad0ee1521e
+
+	column Geo
+		dataType: string
+		lineageTag: 432809d7-31c1-4290-98e4-a26fed6c053b
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 05b57b4e-7d2e-498b-b2fd-82f1c1a873b4
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition locations = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Gypsy\Downloads\ac-sample-data.xlsx"), null, true),
+				    locations_Table = Source{[Item="locations",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(locations_Table,{{"Geo", type text}, {"Region", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

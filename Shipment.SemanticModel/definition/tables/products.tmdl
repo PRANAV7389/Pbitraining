@@ -1,0 +1,41 @@
+table products
+	lineageTag: 0e19cb9f-613b-440f-9533-7473968bac00
+
+	column Product
+		dataType: string
+		lineageTag: 0fc0f5cd-5899-41da-9212-ebd7842ea052
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 83955008-e2d6-4490-af28-470958f32fad
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cost per box'
+		dataType: double
+		lineageTag: 91dedfcc-5696-48bb-a86f-5712eff0ef79
+		summarizeBy: none
+		sourceColumn: Cost per box
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition products = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Gypsy\Downloads\ac-sample-data.xlsx"), null, true),
+				    products_Table = Source{[Item="products",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(products_Table,{{"Product", type text}, {"Category", type text}, {"Cost per box", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

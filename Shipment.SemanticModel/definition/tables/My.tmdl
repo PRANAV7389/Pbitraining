@@ -1,0 +1,44 @@
+table My
+	lineageTag: 3b2af5cf-6ba5-4ae8-8ce8-016e1836f8ca
+
+	calculationGroup
+
+		calculationItem Current = SELECTEDMEASURE()
+
+		calculationItem YTD = CALCULATE(SELECTEDMEASURE(),DATESYTD('calendar'[Date]))
+
+		calculationItem QTD = CALCULATE(SELECTEDMEASURE(),DATESQTD('calendar'[Date]))
+
+		calculationItem 'Last Year Value' = CALCULATE(SELECTEDMEASURE(),SAMEPERIODLASTYEAR('calendar'[Date]))
+
+		calculationItem 'YoY Change' = SELECTEDMEASURE() - CALCULATE(SELECTEDMEASURE(),SAMEPERIODLASTYEAR('calendar'[Date]))
+
+		calculationItem YoY% = ```
+				
+				   VAR cv = SELECTEDMEASURE()
+				   VAR pv = CALCULATE(SELECTEDMEASURE(),SAMEPERIODLASTYEAR('calendar'[Date]))
+				   VAR diff = cv - pv
+				
+				RETURN
+				
+				DIVIDE(diff,pv)
+				```
+
+	column 'My Calcs'
+		dataType: string
+		lineageTag: 32e03132-baad-4d67-ae48-7472bc6cc644
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: 4eab67c9-0b59-4675-9884-30d93d9e4b4f
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

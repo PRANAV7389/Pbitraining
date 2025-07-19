@@ -1,0 +1,125 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 253.33332824707031,
+        "y": 264.66665649414063
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 571.38305001469371,
+            "y": 531.00792708025187
+          },
+          "nodeIndex": "calendar",
+          "nodeLineageTag": "53d5184c-0f2d-4583-8457-af447988fc0c",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 664.60791792497832
+          },
+          "nodeIndex": "locations",
+          "nodeLineageTag": "333dc19e-9e6f-4858-955b-57ad0ee1521e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 471.38305001469382,
+            "y": 140.00792708025182
+          },
+          "nodeIndex": "people",
+          "nodeLineageTag": "a1e52368-d265-4b60-8bae-bb4e98473254",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 10,
+            "y": 117.14833990000608
+          },
+          "nodeIndex": "products",
+          "nodeLineageTag": "0e19cb9f-613b-440f-9533-7473968bac00",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 253.20156119318528,
+            "y": 360.00792708025182
+          },
+          "nodeIndex": "shipments",
+          "nodeLineageTag": "3d46f4e4-a7d6-40b3-a4e1-f6171ba5d723",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 855.38305001469371,
+            "y": 368.16750968286078
+          },
+          "nodeIndex": "Measure Table",
+          "nodeLineageTag": "db4ee3f7-4506-4992-be54-f2df99991b25",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1139.3830500146937,
+            "y": 338.81220006804506
+          },
+          "nodeIndex": "My",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1423.3830500146937,
+            "y": 300.77923564582147
+          },
+          "nodeIndex": "Measure Selector",
+          "nodeLineageTag": "bd686301-8c23-48e4-b706-75bc94d85a6d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
